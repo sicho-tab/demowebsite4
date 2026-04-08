@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Evergreen College — Excellence in Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:    #1a1a2e;
+    --mid:    #4a5568;
+    --soft:   #a0aec0;
+    --bg:     #f7f6f2;
+    --white:  #ffffff;
+    --accent: #2d6a4f;
+    --accent2:#52b788;
+    --warn:   #e07a5f;
+    --card-shadow: 0 2px 16px rgba(26,26,46,.07);
+    --radius: 14px;
+    --serif: 'DM Serif Display', serif;
+    --sans:  'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── UTILS ── */
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 80px 0; }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .section-sub { color: var(--mid); max-width: 560px; margin-bottom: 48px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-family: var(--sans); font-size: 15px; font-weight: 500;
+    cursor: pointer; border: none; text-decoration: none;
+    transition: transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,106,79,.25); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+  .btn-outline:hover { background: var(--accent); color: #fff; }
+  .btn-warn { background: var(--warn); color: #fff; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 28px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; }
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(26,26,46,.12); }
+  .tag {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 50px;
+    font-size: 12px; font-weight: 500;
+    background: #e8f5ee; color: var(--accent);
+  }
+  .hidden { display: none !important; }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--ink);
+    color: #ccc;
+    font-size: 13px;
+    padding: 7px 0;
+    text-align: center;
+    letter-spacing: .02em;
+  }
+  .topbar a { color: var(--accent2); text-decoration: none; }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,246,242,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,.07);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: grid; place-items: center;
+    color: #fff; font-family: var(--serif); font-size: 20px;
+  }
+  .logo-text { font-family: var(--serif); font-size: 20px; color: var(--ink); }
+  .logo-text span { color: var(--accent); }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; color: var(--mid);
+    font-size: 14px; font-weight: 500;
+    padding: 6px 12px; border-radius: 8px;
+    transition: background .15s, color .15s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(45,106,79,.1); color: var(--accent);
+  }
+
+  .nav-actions { display: flex; gap: 10px; align-items: center; }
+  .search-bar {
+    display: flex; align-items: center;
+    background: var(--white); border: 1.5px solid #e2e8f0;
+    border-radius: 50px; padding: 7px 16px; gap: 8px;
+    font-family: var(--sans); font-size: 14px; width: 0;
+    overflow: hidden; transition: width .3s, padding .3s;
+  }
+  .search-bar.open { width: 220px; }
+  .search-bar input { border: none; outline: none; background: transparent; font-family: var(--sans); font-size: 14px; flex: 1; }
+  .icon-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--mid); padding: 6px; border-radius: 8px;
+    transition: background .15s, color .15s;
+  }
+  .icon-btn:hover { background: rgba(45,106,79,.1); color: var(--accent); }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: .2s; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 88vh;
+    background: linear-gradient(135deg, #0f2419 0%, #1a3a2a 50%, #2d6a4f 100%);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 80px 24px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(82,183,136,.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(82,183,136,.15); border: 1px solid rgba(82,183,136,.3);
+    color: var(--accent2); padding: 6px 16px; border-radius: 50px;
+    font-size: 13px; font-weight: 500; margin-bottom: 24px;
+  }
+  .hero-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(38px, 5.5vw, 64px);
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent2); }
+  .hero p { color: rgba(255,255,255,.7); font-size: 18px; max-width: 480px; margin-bottom: 36px; }
+
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .hero-stat-row {
+    display: flex; gap: 36px; margin-top: 48px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { color: #fff; }
+  .hero-stat strong { display: block; font-family: var(--serif); font-size: 36px; color: var(--accent2); }
+  .hero-stat span { font-size: 13px; color: rgba(255,255,255,.5); }
+
+  .hero-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px;
+    padding: 32px;
+    backdrop-filter: blur(16px);
+  }
+  .hero-card-title { font-family: var(--serif); font-size: 20px; color: #fff; margin-bottom: 18px; }
+  .quick-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.8); text-decoration: none; font-size: 15px;
+    transition: color .15s;
+  }
+  .quick-link:last-child { border-bottom: none; }
+  .quick-link:hover { color: var(--accent2); }
+  .quick-link-icon {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: rgba(82,183,136,.15);
+    display: grid; place-items: center;
+    font-size: 16px;
+  }
+
+  /* ── ANNOUNCEMENTS TICKER ── */
+  .ticker {
+    background: var(--accent);
+    color: #fff; padding: 12px 0;
+    overflow: hidden;
+  }
+  .ticker-inner { display: flex; align-items: center; gap: 0; }
+  .ticker-label {
+    background: rgba(0,0,0,.2);
+    padding: 4px 20px; white-space: nowrap;
+    font-weight: 600; font-size: 13px; letter-spacing: .05em;
+    flex-shrink: 0;
+  }
+  .ticker-track {
+    display: flex; gap: 60px; animation: ticker 28s linear infinite;
+    white-space: nowrap; padding-left: 40px;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-track span { font-size: 14px; }
+  .ticker-track span::before { content: '◆ '; opacity: .6; margin-right: 4px; }
+
+  /* ── NOTICES ── */
+  .notice-item {
+    display: grid; grid-template-columns: 56px 1fr auto;
+    gap: 16px; align-items: start;
+    padding: 20px 24px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .notice-item:hover { background: #f0f8f4; }
+  .notice-date {
+    background: var(--accent);
+    color: #fff; border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 8px 4px;
+    font-family: var(--serif);
+  }
+  .notice-date-day { font-size: 22px; line-height: 1; }
+  .notice-date-mon { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; opacity: .8; }
+  .notice-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .notice-desc { color: var(--mid); font-size: 14px; }
+  .notice-arrow { color: var(--accent); margin-top: 4px; font-size: 20px; }
+
+  /* notice modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,.4);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .modal-overlay.show { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--white); border-radius: 20px;
+    max-width: 560px; width: 100%; padding: 40px;
+    transform: translateY(20px); transition: transform .2s;
+  }
+  .modal-overlay.show .modal { transform: translateY(0); }
+  .modal-close {
+    float: right; background: none; border: none;
+    font-size: 24px; cursor: pointer; color: var(--mid);
+    line-height: 1;
+  }
+
+  /* ── COURSES ── */
+  .course-card .card-body { padding: 24px; }
+  .course-card .course-name { font-family: var(--serif); font-size: 20px; margin: 12px 0 6px; }
+  .course-meta { display: flex; gap: 14px; color: var(--mid); font-size: 13px; margin: 10px 0 14px; flex-wrap: wrap; }
+  .course-meta span { display: flex; align-items: center; gap: 5px; }
+  .course-desc { color: var(--mid); font-size: 14px; line-height: 1.6; }
+  .course-color { height: 6px; }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievement-card .card-body { padding: 28px; }
+  .achievement-icon { font-size: 40px; margin-bottom: 14px; }
+  .achievement-title { font-family: var(--serif); font-size: 19px; margin-bottom: 8px; }
+  .achievement-desc { color: var(--mid); font-size: 14px; }
+
+  /* ── FACULTY ── */
+  .faculty-card { text-align: center; }
+  .faculty-img {
+    width: 90px; height: 90px; border-radius: 50%;
+    object-fit: cover; margin: 28px auto 16px;
+    display: block; font-size: 40px; line-height: 90px;
+    background: #e8f5ee; text-align: center;
+  }
+  .faculty-name { font-family: var(--serif); font-size: 18px; }
+  .faculty-desg { color: var(--accent); font-size: 13px; font-weight: 500; margin: 4px 0 2px; }
+  .faculty-dept { color: var(--soft); font-size: 13px; margin-bottom: 20px; }
+
+  /* ── ACTIVITIES ── */
+  .activity-card .card-body { padding: 28px; }
+  .activity-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .activity-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: #e8f5ee; display: grid; place-items: center; font-size: 24px;
+  }
+  .activity-title { font-family: var(--serif); font-size: 18px; }
+  .activity-desc { color: var(--mid); font-size: 14px; margin-bottom: 18px; }
+
+  /* ── NEWS ── */
+  .news-card .news-img {
+    height: 180px; background: linear-gradient(135deg, #2d6a4f, #52b788);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px;
+  }
+  .news-body { padding: 20px; }
+  .news-date { color: var(--soft); font-size: 12px; margin-bottom: 8px; }
+  .news-title { font-family: var(--serif); font-size: 18px; margin-bottom: 8px; }
+  .news-excerpt { color: var(--mid); font-size: 14px; }
+
+  /* ── STUDENT PROFILE ── */
+  .profile-wrap {
+    display: grid; grid-template-columns: 280px 1fr; gap: 32px;
+  }
+  .profile-sidebar {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .profile-avatar {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px; color: #fff;
+    margin: 0 auto 16px;
+  }
+  .profile-name { font-family: var(--serif); font-size: 22px; margin-bottom: 4px; }
+  .profile-role { color: var(--accent); font-size: 14px; font-weight: 500; margin-bottom: 16px; }
+  .profile-meta { text-align: left; }
+  .profile-meta-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+  }
+  .profile-meta-row:last-child { border-bottom: none; }
+  .profile-meta-label { color: var(--mid); }
+  .profile-meta-val { font-weight: 500; }
+  .profile-main { display: flex; flex-direction: column; gap: 24px; }
+  .profile-section-title { font-family: var(--serif); font-size: 20px; margin-bottom: 14px; }
+  .profile-box {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+  }
+  .enrolled-course {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .enrolled-course:last-child { border-bottom: none; }
+  .course-progress { width: 120px; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+  .course-progress-bar { height: 100%; background: var(--accent); border-radius: 3px; }
+
+  /* login */
+  .login-box {
+    max-width: 420px; margin: 0 auto;
+    background: var(--white); border-radius: 20px;
+    box-shadow: var(--card-shadow); padding: 48px 40px; text-align: center;
+  }
+  .login-icon { font-size: 52px; margin-bottom: 16px; }
+  .form-group { text-align: left; margin-bottom: 18px; }
+  .form-label { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 6px; }
+  .form-input {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid #e2e8f0; border-radius: 10px;
+    font-family: var(--sans); font-size: 15px; color: var(--ink);
+    background: var(--bg); transition: border-color .15s;
+  }
+  .form-input:focus { outline: none; border-color: var(--accent); background: #fff; }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, #0f2419, #2d6a4f);
+    border-radius: 20px; padding: 48px;
+    color: #fff; text-align: center;
+  }
+  .about-visual-icon { font-size: 80px; margin-bottom: 20px; }
+  .about-visual h3 { font-family: var(--serif); font-size: 28px; margin-bottom: 12px; }
+  .about-visual p { color: rgba(255,255,255,.7); font-size: 15px; }
+  .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .mv-card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--card-shadow); padding: 24px;
+    border-left: 4px solid var(--accent);
+  }
+  .mv-card h4 { font-family: var(--serif); font-size: 18px; margin-bottom: 8px; }
+  .mv-card p { color: var(--mid); font-size: 14px; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+  .contact-info-item {
+    display: flex; gap: 16px; margin-bottom: 28px; align-items: flex-start;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: #e8f5ee; display: grid; place-items: center; font-size: 20px; flex-shrink: 0;
+  }
+  .contact-info-label { font-size: 13px; color: var(--soft); margin-bottom: 2px; }
+  .contact-info-val { font-weight: 500; color: var(--ink); }
+  .contact-form-wrap {
+    background: var(--white); border-radius: 20px;
+    box-shadow: var(--card-shadow); padding: 36px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,.6);
+    padding: 64px 24px 32px;
+  }
+  .footer-grid {
+    max-width: 1140px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-about p { font-size: 14px; line-height: 1.7; margin-top: 14px; }
+  .footer-col h4 { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 16px; letter-spacing: .04em; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { color: rgba(255,255,255,.6); text-decoration: none; font-size: 14px; transition: color .15s; }
+  .footer-col ul li a:hover { color: var(--accent2); }
+  .social-links { display: flex; gap: 10px; margin-top: 16px; }
+  .social-link {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: rgba(255,255,255,.08);
+    display: grid; place-items: center; font-size: 16px;
+    text-decoration: none; color: rgba(255,255,255,.6);
+    transition: background .15s, color .15s;
+  }
+  .social-link:hover { background: var(--accent); color: #fff; }
+  .footer-bottom {
+    max-width: 1140px; margin: 28px auto 0;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; flex-wrap: wrap; gap: 12px;
+  }
+
+  /* ── PAGE SECTIONS (SPA) ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: var(--bg); padding: 16px 24px;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      z-index: 99;
+    }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .profile-wrap { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .mv-grid { grid-template-columns: 1fr; }
+  }
+  @media(max-width: 540px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .section { padding: 56px 0; }
+    .notice-item { grid-template-columns: 44px 1fr; }
+    .notice-arrow { display: none; }
+  }
+
+  /* Animate in */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp .5s ease both; }
+  .delay-1 { animation-delay: .1s; }
+  .delay-2 { animation-delay: .2s; }
+  .delay-3 { animation-delay: .3s; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  📢 Admissions Open 2025–26 — <a href="#" onclick="nav('admissions')">Apply Now</a> &nbsp;|&nbsp; Exam Schedule Released — <a href="#" onclick="nav('notices')">View Notices</a>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="nav('home')">
+      <div class="logo-mark">E</div>
+      <span class="logo-text">Evergreen <span>College</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="nav('home')" class="active" id="nav-home">Home</a></li>
+      <li><a href="#" onclick="nav('about')" id="nav-about">About</a></li>
+      <li><a href="#" onclick="nav('courses')" id="nav-courses">Courses</a></li>
+      <li><a href="#" onclick="nav('notices')" id="nav-notices">Notices</a></li>
+      <li><a href="#" onclick="nav('achievements')" id="nav-achievements">Achievements</a></li>
+      <li><a href="#" onclick="nav('faculty')" id="nav-faculty">Faculty & Staff</a></li>
+      <li><a href="#" onclick="nav('profile')" id="nav-profile">Student Profile</a></li>
+      <li><a href="#" onclick="nav('activities')" id="nav-activities">Activities</a></li>
+      <li><a href="#" onclick="nav('news')" id="nav-news">News</a></li>
+      <li><a href="#" onclick="nav('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="search-bar" id="searchBar">
+        <input type="text" placeholder="Search..." id="searchInput" oninput="handleSearch(this.value)"/>
+        <button class="icon-btn" onclick="toggleSearch()">✕</button>
+      </div>
+      <button class="icon-btn" onclick="toggleSearch()" title="Search">🔍</button>
+      <button class="hamburger" onclick="toggleMenu()" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGES -->
+<div id="appRoot">
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner container">
+      <div>
+        <div class="hero-badge fade-up">Admissions Open 2025–26</div>
+        <h1 class="fade-up delay-1">Shape Your Future at <em>Evergreen</em> College</h1>
+        <p class="fade-up delay-2">A premier institution dedicated to excellence in education, research, and character — empowering students to lead with purpose.</p>
+        <div class="hero-ctas fade-up delay-3">
+          <a class="btn btn-primary" href="#" onclick="nav('admissions')">Apply for Admission →</a>
+          <a class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3);" href="#" onclick="nav('courses')">Explore Courses</a>
+        </div>
+        <div class="hero-stat-row fade-up delay-3">
+          <div class="hero-stat"><strong>4,200+</strong><span>Students</span></div>
+          <div class="hero-stat"><strong>120+</strong><span>Faculty</span></div>
+          <div class="hero-stat"><strong>28</strong><span>Courses</span></div>
+          <div class="hero-stat"><strong>35 yrs</strong><span>Excellence</span></div>
+        </div>
+      </div>
+      <div class="hero-card fade-up delay-2">
+        <div class="hero-card-title">Quick Access</div>
+        <a class="quick-link" href="#" onclick="nav('admissions')">
+          <span style="display:flex;align-items:center;gap:12px;"><span class="quick-link-icon">📋</span>Admissions 2025–26</span>
+          <span>→</span>
+        </a>
+        <a class="quick-link" href="#" onclick="nav('notices')">
+          <span style="display:flex;align-items:center;gap:12px;"><span class="quick-link-icon">📢</span>Latest Notices</span>
+          <span>→</span>
+        </a>
+        <a class="quick-link" href="#" onclick="nav('courses')">
+          <span style="display:flex;align-items:center;gap:12px;"><span class="quick-link-icon">🎓</span>Our Courses</span>
+          <span>→</span>
+        </a>
+        <a class="quick-link" href="#" onclick="nav('contact')">
+          <span style="display:flex;align-items:center;gap:12px;"><span class="quick-link-icon">📞</span>Get in Touch</span>
+          <span>→</span>
+        </a>
+        <a class="quick-link" href="#" onclick="nav('profile')">
+          <span style="display:flex;align-items:center;gap:12px;"><span class="quick-link-icon">👤</span>Student Login</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <div class="container">
+      <div class="ticker-inner">
+        <div class="ticker-label">LIVE</div>
+        <div class="ticker-track" id="tickerTrack">
+          <span>Annual Sports Day — April 15, 2025</span>
+          <span>Exam Hall Ticket Release — Download Now</span>
+          <span>New Lab Inauguration — Science Block B</span>
+          <span>Alumni Meet 2025 — Register Before March 30</span>
+          <span>Scholarship Applications Open — Last Date: April 20</span>
+          <span>Annual Sports Day — April 15, 2025</span>
+          <span>Exam Hall Ticket Release — Download Now</span>
+          <span>New Lab Inauguration — Science Block B</span>
+          <span>Alumni Meet 2025 — Register Before March 30</span>
+          <span>Scholarship Applications Open — Last Date: April 20</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notices Preview -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Important</div>
+      <h2 class="section-title">Latest Notices</h2>
+      <p class="section-sub">Stay up to date with important announcements, exam schedules, and academic news.</p>
+      <div class="card" style="overflow:hidden;">
+        <div id="homeNotices"></div>
+      </div>
+      <div style="text-align:center;margin-top:28px;">
+        <a class="btn btn-outline" href="#" onclick="nav('notices')">View All Notices →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Preview -->
+  <section class="section" style="background:var(--white);padding-top:80px;padding-bottom:80px;">
+    <div class="container">
+      <div class="section-label">Updates</div>
+      <h2 class="section-title">Latest News & Events</h2>
+      <p class="section-sub">Recent happenings, achievements, and upcoming events at Evergreen College.</p>
+      <div class="grid-3" id="homeNews"></div>
+      <div style="text-align:center;margin-top:32px;">
+        <a class="btn btn-primary" href="#" onclick="nav('news')">All News →</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+<!-- ══════════ ABOUT ══════════ -->
+<div class="page" id="page-about">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">About Evergreen College</h2>
+      <div class="about-grid">
+        <div>
+          <p style="color:var(--mid);margin-bottom:18px;">Founded in 1989, Evergreen College has been a beacon of academic excellence in the region. Nestled in a serene green campus, we offer a nurturing environment where students grow intellectually, socially, and professionally.</p>
+          <p style="color:var(--mid);margin-bottom:18px;">Our institution is affiliated with the State University and is accredited with the highest grade. We offer undergraduate, postgraduate, and professional diploma programmes across Science, Arts, Commerce, and Technology.</p>
+          <p style="color:var(--mid);margin-bottom:32px;">With a legacy of producing industry leaders, government officers, scientists, and entrepreneurs, Evergreen College continues to shape futures with integrity and purpose.</p>
+          <div class="grid-2">
+            <div style="background:#e8f5ee;border-radius:14px;padding:20px;">
+              <div style="font-family:var(--serif);font-size:32px;color:var(--accent);">NAAC A+</div>
+              <div style="color:var(--mid);font-size:14px;margin-top:4px;">Accreditation Grade</div>
+            </div>
+            <div style="background:#e8f5ee;border-radius:14px;padding:20px;">
+              <div style="font-family:var(--serif);font-size:32px;color:var(--accent);">1989</div>
+              <div style="color:var(--mid);font-size:14px;margin-top:4px;">Year Established</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="about-visual">
+            <div class="about-visual-icon">🏛️</div>
+            <h3>Excellence Since 1989</h3>
+            <p>35 years of transforming lives through quality education, research, and holistic development.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mission & Vision -->
+      <div style="margin-top:64px;">
+        <div class="section-label">Our Values</div>
+        <h2 class="section-title" style="margin-bottom:8px;">Mission & Vision</h2>
+        <div class="mv-grid">
+          <div class="mv-card">
+            <h4>🎯 Our Mission</h4>
+            <p>To provide quality, accessible education that empowers students with knowledge, skills, and ethical values — preparing them for a rapidly changing world.</p>
+          </div>
+          <div class="mv-card">
+            <h4>🌟 Our Vision</h4>
+            <p>To be a globally recognized institution of higher learning known for academic excellence, research innovation, and community impact.</p>
+          </div>
+          <div class="mv-card">
+            <h4>🤝 Our Values</h4>
+            <p>Integrity, Inclusivity, Innovation, and Excellence guide every decision we make — from curriculum design to student welfare.</p>
+          </div>
+          <div class="mv-card">
+            <h4>📚 Academic Philosophy</h4>
+            <p>We believe education is not just about degrees — it is about cultivating curious, compassionate, and capable human beings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ COURSES ══════════ -->
+<div class="page" id="page-courses">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Academics</div>
+      <h2 class="section-title">Our Programmes</h2>
+      <p class="section-sub">Choose from a wide range of undergraduate, postgraduate, and diploma programmes designed to meet industry demands.</p>
+      <div class="grid-3" id="coursesList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ NOTICES ══════════ -->
+<div class="page" id="page-notices">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Announcements</div>
+      <h2 class="section-title">Notices Board</h2>
+      <p class="section-sub">Official announcements, exam schedules, circulars, and important updates from the college administration.</p>
+      <div class="card" style="overflow:hidden;" id="allNotices"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ ACHIEVEMENTS ══════════ -->
+<div class="page" id="page-achievements">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Pride</div>
+      <h2 class="section-title">Achievements</h2>
+      <p class="section-sub">Our students and college have earned recognition at local, national, and international levels.</p>
+      <div class="grid-3" id="achievementsList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ FACULTY ══════════ -->
+<div class="page" id="page-faculty">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Our Team</div>
+      <h2 class="section-title">Faculty & Staff</h2>
+      <p class="section-sub">Meet the dedicated educators and staff who make Evergreen College a world-class institution.</p>
+      <div class="grid-4" id="facultyList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ STUDENT PROFILE ══════════ -->
+<div class="page" id="page-profile">
+  <section class="section">
+    <div class="container">
+      <div id="profileLogin">
+        <div class="section-label">Student Portal</div>
+        <h2 class="section-title" style="margin-bottom:32px;">Student Login</h2>
+        <div class="login-box">
+          <div class="login-icon">🎓</div>
+          <div class="section-title" style="font-size:24px;margin-bottom:6px;">Welcome Back</div>
+          <p style="color:var(--mid);font-size:14px;margin-bottom:28px;">Log in to access your academic profile, courses, and achievements.</p>
+          <div class="form-group">
+            <label class="form-label">Student ID / Roll Number</label>
+            <input class="form-input" type="text" placeholder="e.g. EC2025001" id="loginId"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" placeholder="Enter your password" id="loginPass"/>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;" onclick="demoLogin()">Login to Portal →</button>
+          <p style="color:var(--soft);font-size:12px;margin-top:16px;">Use <strong>demo / demo123</strong> for preview</p>
+        </div>
+      </div>
+      <div id="profileView" class="hidden">
+        <div class="section-label">Student Portal</div>
+        <h2 class="section-title" style="margin-bottom:32px;">My Profile</h2>
+        <div class="profile-wrap">
+          <div class="profile-sidebar">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-name">Arjun Sharma</div>
+            <div class="profile-role">B.Sc. Computer Science · 3rd Year</div>
+            <div class="tag" style="margin-bottom:20px;">Roll No: EC2025001</div>
+            <div class="profile-meta">
+              <div class="profile-meta-row"><span class="profile-meta-label">Department</span><span class="profile-meta-val">Science</span></div>
+              <div class="profile-meta-row"><span class="profile-meta-label">Batch</span><span class="profile-meta-val">2022–2025</span></div>
+              <div class="profile-meta-row"><span class="profile-meta-label">CGPA</span><span class="profile-meta-val">8.7 / 10</span></div>
+              <div class="profile-meta-row"><span class="profile-meta-label">Attendance</span><span class="profile-meta-val">91%</span></div>
+              <div class="profile-meta-row"><span class="profile-meta-label">Email</span><span class="profile-meta-val">arjun@ec.edu</span></div>
+            </div>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:20px;" onclick="logout()">Logout</button>
+          </div>
+          <div class="profile-main">
+            <div class="profile-box">
+              <div class="profile-section-title">Enrolled Courses</div>
+              <div class="enrolled-course">
+                <div>
+                  <div style="font-weight:600;">Data Structures & Algorithms</div>
+                  <div style="color:var(--soft);font-size:13px;">CS301 · Sem 5</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:var(--mid);margin-bottom:4px;text-align:right;">75%</div>
+                  <div class="course-progress"><div class="course-progress-bar" style="width:75%"></div></div>
+                </div>
+              </div>
+              <div class="enrolled-course">
+                <div>
+                  <div style="font-weight:600;">Database Management</div>
+                  <div style="color:var(--soft);font-size:13px;">CS305 · Sem 5</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:var(--mid);margin-bottom:4px;text-align:right;">88%</div>
+                  <div class="course-progress"><div class="course-progress-bar" style="width:88%"></div></div>
+                </div>
+              </div>
+              <div class="enrolled-course">
+                <div>
+                  <div style="font-weight:600;">Operating Systems</div>
+                  <div style="color:var(--soft);font-size:13px;">CS307 · Sem 5</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:var(--mid);margin-bottom:4px;text-align:right;">60%</div>
+                  <div class="course-progress"><div class="course-progress-bar" style="width:60%"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="profile-box">
+              <div class="profile-section-title">My Achievements</div>
+              <div class="grid-2">
+                <div style="background:#e8f5ee;border-radius:12px;padding:16px;">
+                  <div style="font-size:28px;margin-bottom:8px;">🥇</div>
+                  <div style="font-weight:600;font-size:14px;">1st Place — Hackathon 2024</div>
+                  <div style="color:var(--mid);font-size:13px;">State-level Coding Competition</div>
+                </div>
+                <div style="background:#fff8f0;border-radius:12px;padding:16px;">
+                  <div style="font-size:28px;margin-bottom:8px;">📜</div>
+                  <div style="font-weight:600;font-size:14px;">Merit Scholarship</div>
+                  <div style="color:var(--mid);font-size:13px;">Academic Year 2023–24</div>
+                </div>
+                <div style="background:#f0f4ff;border-radius:12px;padding:16px;">
+                  <div style="font-size:28px;margin-bottom:8px;">🎤</div>
+                  <div style="font-weight:600;font-size:14px;">Best Speaker Award</div>
+                  <div style="color:var(--mid);font-size:13px;">Inter-College Debate 2023</div>
+                </div>
+                <div style="background:#fdf0f0;border-radius:12px;padding:16px;">
+                  <div style="font-size:28px;margin-bottom:8px;">⚽</div>
+                  <div style="font-weight:600;font-size:14px;">Football Team Captain</div>
+                  <div style="color:var(--mid);font-size:13px;">District Champions 2024</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ ACTIVITIES ══════════ -->
+<div class="page" id="page-activities">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Campus Life</div>
+      <h2 class="section-title">Activities & Clubs</h2>
+      <p class="section-sub">Beyond academics — discover clubs, sports, cultural events, and opportunities to grow as a complete individual.</p>
+      <div class="grid-3" id="activitiesList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ NEWS ══════════ -->
+<div class="page" id="page-news">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Updates</div>
+      <h2 class="section-title">News & Events</h2>
+      <p class="section-sub">Stay connected with the latest happenings, achievements, and upcoming events at Evergreen College.</p>
+      <div class="grid-3" id="newsList"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div class="page" id="page-contact">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Reach Us</div>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="contact-grid">
+        <div>
+          <p style="color:var(--mid);margin-bottom:36px;">We're here to help. Whether you're a prospective student, parent, or alumnus — our team is always happy to answer your questions.</p>
+          <div class="contact-info-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-info-label">Address</div>
+              <div class="contact-info-val">12, College Road, Green Valley<br/>Imphal, Manipur — 795001</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-info-label">Phone</div>
+              <div class="contact-info-val">+91 98765 43210</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <div class="contact-info-label">Email</div>
+              <div class="contact-info-val">info@evergreencollege.edu.in</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon">🕐</div>
+            <div>
+              <div class="contact-info-label">Office Hours</div>
+              <div class="contact-info-val">Mon–Sat: 9:00 AM – 5:00 PM</div>
+            </div>
+          </div>
+          <div style="margin-top:8px;background:var(--white);border-radius:14px;padding:20px;box-shadow:var(--card-shadow);font-size:14px;color:var(--mid);">
+            📌 <strong style="color:var(--ink);">Find Us:</strong> Located near Green Valley Bus Stand, 5 mins walk from the main highway. Parking available on campus.
+          </div>
+        </div>
+        <div class="contact-form-wrap">
+          <div class="section-title" style="font-size:24px;margin-bottom:24px;">Send a Message</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="John"/></div>
+            <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Doe"/></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="you@example.com"/></div>
+          <div class="form-group"><label class="form-label">Subject</label><input class="form-input" placeholder="e.g. Admission Enquiry"/></div>
+          <div class="form-group"><label class="form-label">Message</label><textarea class="form-input" placeholder="Write your message here..."></textarea></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">Send Message →</button>
+          <div id="contactSuccess" class="hidden" style="margin-top:14px;background:#e8f5ee;color:var(--accent);padding:12px 16px;border-radius:10px;font-size:14px;">✅ Message sent! We'll get back to you within 24 hours.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ ADMISSIONS (quick) ══════════ -->
+<div class="page" id="page-admissions">
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Join Us</div>
+      <h2 class="section-title">Admissions 2025–26</h2>
+      <p class="section-sub">Applications are now open for all undergraduate and postgraduate programmes. Limited seats available.</p>
+      <div class="grid-3">
+        <div class="card"><div style="padding:28px;">
+          <div style="font-size:36px;margin-bottom:14px;">📝</div>
+          <div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;">Step 1 — Apply Online</div>
+          <p style="color:var(--mid);font-size:14px;">Fill the online application form with your academic details and personal information.</p>
+        </div></div>
+        <div class="card"><div style="padding:28px;">
+          <div style="font-size:36px;margin-bottom:14px;">📄</div>
+          <div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;">Step 2 — Submit Documents</div>
+          <p style="color:var(--mid);font-size:14px;">Upload required documents: mark sheets, identity proof, and passport-size photograph.</p>
+        </div></div>
+        <div class="card"><div style="padding:28px;">
+          <div style="font-size:36px;margin-bottom:14px;">🎉</div>
+          <div style="font-family:var(--serif);font-size:20px;margin-bottom:8px;">Step 3 — Get Admitted</div>
+          <p style="color:var(--mid);font-size:14px;">After verification and merit-based selection, receive your admission confirmation letter.</p>
+        </div></div>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <a class="btn btn-primary" href="#" onclick="nav('courses')">View Courses & Fees →</a>
+        <a class="btn btn-outline" style="margin-left:14px;" href="#" onclick="nav('contact')">Contact Admissions Office</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /appRoot -->
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-about">
+      <a href="#" class="logo" onclick="nav('home')">
+        <div class="logo-mark" style="background:var(--accent2);">E</div>
+        <span class="logo-text" style="color:#fff;">Evergreen <span style="color:var(--accent2);">College</span></span>
+      </a>
+      <p>A premier institution committed to academic excellence, holistic development, and community leadership since 1989.</p>
+      <div class="social-links">
+        <a class="social-link" href="#">f</a>
+        <a class="social-link" href="#">𝕏</a>
+        <a class="social-link" href="#">in</a>
+        <a class="social-link" href="#">📸</a>
+        <a class="social-link" href="#">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#" onclick="nav('home')">Home</a></li>
+        <li><a href="#" onclick="nav('about')">About Us</a></li>
+        <li><a href="#" onclick="nav('courses')">Courses</a></li>
+        <li><a href="#" onclick="nav('admissions')">Admissions</a></li>
+        <li><a href="#" onclick="nav('notices')">Notices</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Academics</h4>
+      <ul>
+        <li><a href="#" onclick="nav('faculty')">Faculty</a></li>
+        <li><a href="#" onclick="nav('achievements')">Achievements</a></li>
+        <li><a href="#" onclick="nav('activities')">Activities</a></li>
+        <li><a href="#" onclick="nav('news')">News</a></li>
+        <li><a href="#" onclick="nav('profile')">Student Portal</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 Green Valley, Imphal</a></li>
+        <li><a href="#">📞 +91 98765 43210</a></li>
+        <li><a href="#">📧 info@evergreencollege.edu.in</a></li>
+        <li><a href="#" onclick="nav('contact')">Contact Form</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Evergreen College. All rights reserved.</span>
+    <span>Accredited by NAAC — Grade A+ | Affiliated to State University</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="noticeModal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeNoticeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const notices = [
+  { day:'28', mon:'Mar', title:'Semester 5 Examination Schedule', desc:'End-semester examinations for all 5th semester students begin from April 10. Hall tickets available at the exam office.', full:'All 5th semester students are informed that end-semester examinations will commence on April 10, 2025. Students must collect their hall tickets from the examination office (Block A, Room 102) by April 5, 2025. Absentees will not be permitted to appear without valid medical documentation.', tag:'Exam' },
+  { day:'22', mon:'Mar', title:'Admission Portal Open — 2025-26', desc:'Online applications for all UG and PG programmes are now open. Last date for submission is April 30, 2025.', full:'Evergreen College announces the opening of admissions for the academic year 2025–26. Eligible candidates may apply online at the college portal. The last date for submission of applications is April 30, 2025. Merit lists will be published by May 20, 2025. Separate notifications for scholarship applications will follow.', tag:'Admission' },
+  { day:'18', mon:'Mar', title:'Annual Sports Day — April 15, 2025', desc:'Annual Sports Day will be held on April 15. Students are encouraged to register for events before April 8.', full:'The college invites all students to participate in the Annual Sports Day scheduled for April 15, 2025 at the main sports ground. Events include athletics, cricket, football, volleyball, and indoor games. Registration forms available at the Physical Education Department. Prize distribution ceremony will be held on the same day at 4:30 PM.', tag:'Event' },
+  { day:'10', mon:'Mar', title:'Library Holiday Notice', desc:'College library will remain closed on March 25 (Holi) and March 26. Regular timings resume from March 27.', full:'Students are informed that the college library will be closed on March 25 and 26, 2025 on account of the Holi festival. Normal library operations (8 AM to 6 PM) will resume from March 27, 2025. Any pending book returns may be submitted on the next working day without late fines.', tag:'General' },
+  { day:'05', mon:'Mar', title:'NCC Camp Registration Open', desc:'NCC annual training camp registration is now open for all NCC cadets. Report to NCC office by March 20.', full:'All enrolled NCC cadets (Army, Navy, and Air Force wings) are requested to register for the Annual Training Camp 2025. The camp will be held from May 1–10, 2025. Registration closes on March 20. Cadets must bring a copy of their NCC certificate and submit the registration fee of ₹200 at the NCC Office (Block C).', tag:'NCC' },
+];
+
+const courses = [
+  { emoji:'💻', name:'B.Sc. Computer Science', duration:'3 Years', fees:'₹28,000/yr', desc:'Fundamentals of programming, algorithms, databases, networks, and software engineering. Strong placement record.', color:'#2d6a4f' },
+  { emoji:'⚗️', name:'B.Sc. Chemistry', duration:'3 Years', fees:'₹22,000/yr', desc:'Comprehensive study of organic, inorganic, and physical chemistry with state-of-the-art lab facilities.', color:'#e07a5f' },
+  { emoji:'🔢', name:'B.Sc. Mathematics', duration:'3 Years', fees:'₹20,000/yr', desc:'Pure and applied mathematics covering calculus, algebra, statistics, and numerical analysis.', color:'#6a2d6a' },
+  { emoji:'📖', name:'B.A. English Literature', duration:'3 Years', fees:'₹18,000/yr', desc:'Study of British, American, and Indian literature, linguistics, creative writing, and communication skills.', color:'#2d4a6a' },
+  { emoji:'🏛️', name:'B.A. History & Political Sc.', duration:'3 Years', fees:'₹18,000/yr', desc:'Explore world history, Indian polity, governance, international relations, and political theory.', color:'#6a4a2d' },
+  { emoji:'💹', name:'B.Com. (Honours)', duration:'3 Years', fees:'₹24,000/yr', desc:'Accounting, finance, taxation, business law, and economics with professional certification prep.', color:'#2d6a5e' },
+  { emoji:'🖥️', name:'M.Sc. Computer Science', duration:'2 Years', fees:'₹36,000/yr', desc:'Advanced computing, AI, machine learning, cybersecurity, and research methodology for graduates.', color:'#1a3a6a' },
+  { emoji:'📊', name:'M.Com. Finance', duration:'2 Years', fees:'₹32,000/yr', desc:'Advanced financial management, investment analysis, corporate finance, and taxation for commerce graduates.', color:'#6a3a1a' },
+  { emoji:'🎨', name:'Diploma in Digital Design', duration:'1 Year', fees:'₹15,000', desc:'Graphic design, UI/UX, Adobe Creative Suite, and portfolio development — industry-focused curriculum.', color:'#5e2d6a' },
+];
+
+const achievements = [
+  { icon:'🏆', title:'Best College Award 2024', desc:'Awarded the State Best College Award for academic excellence and infrastructure development.', tag:'Institutional' },
+  { icon:'🥇', title:'National Science Olympiad', desc:'Priya Devi secured 1st place in the National Science Olympiad 2024 — the first student from our state.', tag:'Student' },
+  { icon:'🎓', title:'100% Placement — CS Batch 2024', desc:'The entire Computer Science graduating batch of 2024 secured placements in top IT companies.', tag:'Placement' },
+  { icon:'⚽', title:'State Football Champions 2024', desc:'Our men\'s football team won the State Inter-College Football Championship for the 3rd consecutive year.', tag:'Sports' },
+  { icon:'🔬', title:'Research Publication in Nature', desc:'Dr. R. Singh and students published a landmark research paper on biodegradable polymers in Nature Chemistry.', tag:'Research' },
+  { icon:'🎭', title:'National Cultural Fest — 1st Runner-Up', desc:'Our cultural team won 1st runner-up at the National Inter-University Cultural Festival 2023.', tag:'Cultural' },
+];
+
+const faculty = [
+  { emoji:'👩‍🏫', name:'Dr. Sunita Devi', desg:'Principal', dept:'Administration' },
+  { emoji:'👨‍💻', name:'Prof. Rajan Singh', desg:'Head of Dept', dept:'Computer Science' },
+  { emoji:'👩‍🔬', name:'Dr. Meena Iyer', desg:'Associate Professor', dept:'Chemistry' },
+  { emoji:'👨‍🏫', name:'Mr. Anil Kumar', desg:'Assistant Professor', dept:'Mathematics' },
+  { emoji:'👩‍🎓', name:'Dr. Lalitha Rao', desg:'Professor', dept:'English Literature' },
+  { emoji:'👨‍💼', name:'Mr. Deepak Thakur', desg:'Registrar', dept:'Administration' },
+  { emoji:'👩‍🏫', name:'Ms. Kavya Nair', desg:'Assistant Professor', dept:'Commerce' },
+  { emoji:'👨‍🔬', name:'Dr. Binod Sharma', desg:'Associate Professor', dept:'Physics' },
+];
+
+const activities = [
+  { icon:'🪖', title:'National Cadet Corps (NCC)', desc:'Join the Army, Navy, or Air Force wing of NCC. Build discipline, leadership, and national pride through camps and parades.', cta:'Join NCC' },
+  { icon:'💻', title:'Tech & Coding Club', desc:'Weekly hackathons, coding challenges, and industry mentors. Build real-world projects and compete at national levels.', cta:'Join Club' },
+  { icon:'🎭', title:'Cultural & Drama Society', desc:'Dance, theatre, music, and fine arts. Participate in intra and inter-college cultural competitions.', cta:'Join Society' },
+  { icon:'📰', title:'Student Journalism Cell', desc:'Write, photograph, and report for the college magazine and digital newsletter. Develop media skills.', cta:'Join Cell' },
+  { icon:'⚽', title:'Sports & Athletics', desc:'Cricket, football, volleyball, athletics, badminton, and more. Represent the college at state and national meets.', cta:'Register' },
+  { icon:'🌱', title:'Eco & Nature Club', desc:'Tree plantations, environmental awareness campaigns, and nature treks. Be a sustainability champion.', cta:'Join Club' },
+];
+
+const newsData = [
+  { emoji:'🏅', title:'Students Win National Hackathon', date:'March 28, 2025', excerpt:'A team of four CS students won first place at the National CodeFest 2025, competing against 200+ teams from across India.' },
+  { emoji:'🌿', title:'New Green Campus Initiative Launched', date:'March 20, 2025', excerpt:'College launches its "Zero Carbon Campus" initiative — solar panels, rainwater harvesting, and 1000 trees to be planted this year.' },
+  { emoji:'📚', title:'New Digital Library Wing Inaugurated', date:'March 15, 2025', excerpt:'The new digital library wing with 5,000+ e-books, research journals, and high-speed internet was inaugurated by the principal.' },
+  { emoji:'🎤', title:'Annual Debate Competition Results', date:'March 10, 2025', excerpt:'Our college won the inter-college debate championship. Team leader Priya Sharma delivered a stellar performance in the finals.' },
+  { emoji:'🤝', title:'Industry Partnership with TechCorp India', date:'March 5, 2025', excerpt:'Evergreen College signed an MoU with TechCorp India for internships, guest lectures, and campus placement drives.' },
+  { emoji:'🎓', title:'Alumni Meet 2025 Highlights', date:'Feb 28, 2025', excerpt:'Over 500 alumni gathered for the annual meet. Distinguished alumni shared career insights and announced scholarship funds.' },
+];
+
+// ── RENDER ──
+function renderNotices(container, max) {
+  const items = max ? notices.slice(0,max) : notices;
+  container.innerHTML = items.map(n => `
+    <div class="notice-item" onclick="openNotice('${n.title}')">
+      <div class="notice-date"><div class="notice-date-day">${n.day}</div><div class="notice-date-mon">${n.mon}</div></div>
+      <div>
+        <div class="notice-title">${n.title} <span class="tag" style="margin-left:8px;font-size:11px;">${n.tag}</span></div>
+        <div class="notice-desc">${n.desc}</div>
+      </div>
+      <div class="notice-arrow">›</div>
+    </div>
+  `).join('');
+}
+
+function renderCourses() {
+  const colors = ['#2d6a4f','#e07a5f','#6a2d6a','#2d4a6a','#6a4a2d','#2d6a5e','#1a3a6a','#6a3a1a','#5e2d6a'];
+  document.getElementById('coursesList').innerHTML = courses.map((c,i) => `
+    <div class="card course-card">
+      <div class="course-color" style="background:${c.color}"></div>
+      <div class="card-body">
+        <div style="font-size:36px;">${c.emoji}</div>
+        <div class="course-name">${c.name}</div>
+        <div class="course-meta">
+          <span>⏱ ${c.duration}</span>
+          <span>💰 ${c.fees}</span>
+        </div>
+        <div class="course-desc">${c.desc}</div>
+        <a class="btn btn-outline" href="#" onclick="nav('contact')" style="margin-top:16px;font-size:13px;padding:9px 18px;">Enquire →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAchievements() {
+  document.getElementById('achievementsList').innerHTML = achievements.map(a => `
+    <div class="card achievement-card">
+      <div class="card-body">
+        <div class="achievement-icon">${a.icon}</div>
+        <span class="tag" style="margin-bottom:10px;">${a.tag}</span>
+        <div class="achievement-title">${a.title}</div>
+        <div class="achievement-desc">${a.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFaculty() {
+  document.getElementById('facultyList').innerHTML = faculty.map(f => `
+    <div class="card faculty-card">
+      <div class="faculty-img">${f.emoji}</div>
+      <div class="faculty-name">${f.name}</div>
+      <div class="faculty-desg">${f.desg}</div>
+      <div class="faculty-dept">${f.dept}</div>
+    </div>
+  `).join('');
+}
+
+function renderActivities() {
+  document.getElementById('activitiesList').innerHTML = activities.map(a => `
+    <div class="card activity-card">
+      <div class="card-body">
+        <div class="activity-header">
+          <div class="activity-icon">${a.icon}</div>
+          <div class="activity-title">${a.title}</div>
+        </div>
+        <div class="activity-desc">${a.desc}</div>
+        <a class="btn btn-primary" href="#" onclick="nav('contact')" style="font-size:13px;padding:9px 18px;">${a.cta} →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderNews(containerId, max) {
+  const items = max ? newsData.slice(0,max) : newsData;
+  document.getElementById(containerId).innerHTML = items.map(n => `
+    <div class="card news-card">
+      <div class="news-img">${n.emoji}</div>
+      <div class="news-body">
+        <div class="news-date">${n.date}</div>
+        <div class="news-title">${n.title}</div>
+        <div class="news-excerpt">${n.excerpt}</div>
+        <a href="#" style="color:var(--accent);font-size:14px;font-weight:500;margin-top:12px;display:inline-block;text-decoration:none;">Read more →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── NAV ──
+function nav(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  return false;
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function toggleSearch() {
+  const bar = document.getElementById('searchBar');
+  bar.classList.toggle('open');
+  if (bar.classList.contains('open')) document.getElementById('searchInput').focus();
+}
+
+function handleSearch(val) {
+  if (!val.trim()) return;
+  const lower = val.toLowerCase();
+  if (lower.includes('course') || lower.includes('programme')) nav('courses');
+  else if (lower.includes('notice') || lower.includes('exam')) nav('notices');
+  else if (lower.includes('faculty') || lower.includes('teacher')) nav('faculty');
+  else if (lower.includes('news') || lower.includes('event')) nav('news');
+  else if (lower.includes('contact') || lower.includes('address')) nav('contact');
+  else if (lower.includes('about') || lower.includes('history')) nav('about');
+  else if (lower.includes('achiev') || lower.includes('award')) nav('achievements');
+  else if (lower.includes('activ') || lower.includes('ncc') || lower.includes('club')) nav('activities');
+  else if (lower.includes('admission')) nav('admissions');
+  else if (lower.includes('profile') || lower.includes('student')) nav('profile');
+}
+
+// ── NOTICE MODAL ──
+function openNotice(title) {
+  const n = notices.find(x => x.title === title);
+  if (!n) return;
+  document.getElementById('modalContent').innerHTML = `
+    <div style="margin-bottom:18px;"><span class="tag">${n.tag}</span></div>
+    <h2 style="font-family:var(--serif);font-size:24px;margin-bottom:8px;padding-right:32px;">${n.title}</h2>
+    <div style="color:var(--soft);font-size:13px;margin-bottom:20px;">📅 ${n.day} ${n.mon} 2025</div>
+    <p style="color:var(--mid);line-height:1.7;">${n.full}</p>
+    <div style="margin-top:24px;display:flex;gap:12px;">
+      <button class="btn btn-primary" onclick="closeNoticeModal()">Close</button>
+      <button class="btn btn-outline">Download PDF</button>
+    </div>
+  `;
+  document.getElementById('noticeModal').classList.add('show');
+}
+
+function closeNoticeModal() { document.getElementById('noticeModal').classList.remove('show'); }
+function closeModal(e) { if (e.target.id === 'noticeModal') closeNoticeModal(); }
+
+// ── PROFILE ──
+function demoLogin() {
+  const id = document.getElementById('loginId').value;
+  const pass = document.getElementById('loginPass').value;
+  if ((id === 'demo' || id === 'EC2025001') && (pass === 'demo123' || pass === 'demo')) {
+    document.getElementById('profileLogin').classList.add('hidden');
+    document.getElementById('profileView').classList.remove('hidden');
+  } else {
+    alert('Use "demo" and "demo123" for the demo login.');
+  }
+}
+
+function logout() {
+  document.getElementById('profileView').classList.add('hidden');
+  document.getElementById('profileLogin').classList.remove('hidden');
+  document.getElementById('loginId').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+// ── CONTACT ──
+function submitContact() {
+  document.getElementById('contactSuccess').classList.remove('hidden');
+  setTimeout(() => document.getElementById('contactSuccess').classList.add('hidden'), 4000);
+}
+
+// ── INIT ──
+renderNotices(document.getElementById('homeNotices'), 3);
+renderNotices(document.getElementById('allNotices'));
+renderCourses();
+renderAchievements();
+renderFaculty();
+renderActivities();
+renderNews('homeNews', 3);
+renderNews('newsList');
+</script>
+</body>
+</html>
